@@ -1,10 +1,12 @@
 package com.jakubu9333.bestartists.database
 
-import androidx.lifecycle.LiveData
+
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
+
 
 /**
  *
@@ -33,13 +35,13 @@ interface AllDao {
     fun getLastEntry():PastEntry
 
     @Query("SELECT * FROM pastRequests ORDER BY entryId DESC")
-    fun getAllEntries(): LiveData<List<PastEntry>>
+    fun getAllEntries(): Flow<List<PastEntry>>
 
     @Query("SELECT * FROM artists")
     fun  getAllArtists(): List<ArtistEntity>
 
     @Query("SELECT * FROM pastRequests")
-    fun getAllOutfits(): List<PastEntry>
+    fun getAllEntriesCo(): List<PastEntry>
 
 
     @Query("SELECT * FROM artists")

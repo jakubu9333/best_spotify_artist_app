@@ -2,7 +2,8 @@
     <string name="app_name">Best Artists</string>
     <string name="action_settings">Settings</string>
 
-
+    <string name="check">check</string>
+    <string name="reset">reset</string>
     <string name="find_best">Find_New</string>
 
     <!-- Preference Titles -->
@@ -18,4 +19,6 @@
     <string name="attachment_title">Download incoming attachments</string>
     <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
 data class PastEntry(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "entryId")
-    val entry_id :Long = 0L,
+    var entry_id :Long = 0L,
     @ColumnInfo(name="time")
-    val time: Long = System.currentTimeMillis()
+    var time: Long = System.currentTimeMillis()
 )

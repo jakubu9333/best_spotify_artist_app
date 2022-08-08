@@ -16,7 +16,6 @@ abstract class EntriesDatabase : RoomDatabase() {
 
     abstract val entryDatabaseDao: AllDao
 
-
     companion object {
         @Volatile
         private var INSTANCE: EntriesDatabase? = null

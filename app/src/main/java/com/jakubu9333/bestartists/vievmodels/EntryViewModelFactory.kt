@@ -1,4 +1,4 @@
-package com.jakubu9333.bestartists
+package com.jakubu9333.bestartists.vievmodels
 
 
 import androidx.lifecycle.ViewModel

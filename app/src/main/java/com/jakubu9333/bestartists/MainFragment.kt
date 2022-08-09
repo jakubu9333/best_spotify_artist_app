@@ -11,6 +11,8 @@ import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jakubu9333.bestartists.databinding.FragmentMainFragmentBinding
+import com.jakubu9333.bestartists.vievmodels.EntryViewModel
+import com.jakubu9333.bestartists.vievmodels.EntryViewModelFactory
 import kotlinx.coroutines.launch
 
 
@@ -45,7 +47,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter =ViewAdapter ()
+        val adapter =ViewAdapter (viewModel)
         recyclerView.adapter=adapter
 
 

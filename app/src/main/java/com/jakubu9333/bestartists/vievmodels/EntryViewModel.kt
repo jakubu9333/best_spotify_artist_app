@@ -1,4 +1,4 @@
-package com.jakubu9333.bestartists
+package com.jakubu9333.bestartists.vievmodels
 
 import androidx.lifecycle.ViewModel
 
@@ -45,6 +45,15 @@ class EntryViewModel(
             newEntry()
         }
 
+    }
+
+    fun onDeleteEntry(id: Long){
+        GlobalScope.launch {
+            deleteEntry(id)
+        }
+    }
+    suspend fun deleteEntry(id:Long){
+        database.clearEntry(id)
     }
 
     suspend fun newEntry() {

@@ -28,6 +28,8 @@ interface AllDao {
     @Query("SELECT * from pastRequests WHERE entryId=:key")
     fun get(key: Long): PastEntry?
 
+    @Query("DELETE FROM pastRequests where entryId=:key")
+    fun clearEntry(key: Long)
     @Query("DELETE FROM pastRequests")
     fun clear()
 
@@ -47,7 +49,7 @@ interface AllDao {
     @Query("SELECT * FROM artists")
     fun getAllArtistsWithEntries(): List<ArtistWithEntriesList>
 
-    @Query("SELECT * FROM pastRequests")
-    fun getAllEntriesWithArtists(): List<EntriesWithArtistsList>
+    @Query("SELECT * FROM pastRequests where entryId=:key")
+    fun getEntryWithArtists(key: Long): EntriesWithArtistsList
 
 }

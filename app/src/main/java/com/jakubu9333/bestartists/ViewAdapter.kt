@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jakubu9333.bestartists.database.PastEntry
 import com.jakubu9333.bestartists.databinding.EntryItemBinding
+import com.jakubu9333.bestartists.vievmodels.EntryViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -15,7 +16,7 @@ import java.util.*
  *
  * @author Jakub Uhlarik
  */
-class ViewAdapter() : ListAdapter<PastEntry, ViewAdapter.EntryViewHolder>(DiffCallback){
+class ViewAdapter(private val entryViewModel: EntryViewModel) : ListAdapter<PastEntry, ViewAdapter.EntryViewHolder>(DiffCallback){
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<PastEntry>() {
             override fun areItemsTheSame(oldItem: PastEntry, newItem: PastEntry): Boolean {
@@ -29,16 +30,20 @@ class ViewAdapter() : ListAdapter<PastEntry, ViewAdapter.EntryViewHolder>(DiffCa
     }
 
 
-    class EntryViewHolder(private var binding: EntryItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class EntryViewHolder(private var binding: EntryItemBinding,private var viewModel: EntryViewModel): RecyclerView.ViewHolder(binding.root) {
             @SuppressLint("SimpleDateFormat")
             fun bind(entry:PastEntry){
+                binding.idText.text=entry.entry_id.toString()
                 binding.entrytext.text= SimpleDateFormat(
                     "HH:mm dd.MM").format(Date(entry.time))
+                binding.deleteButton.setOnClickListener{
+                    viewModel.onDeleteEntry(entry.entry_id)
+                }
             }
 }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EntryViewHolder {
-        return EntryViewHolder(EntryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return EntryViewHolder(EntryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),entryViewModel)
     }
 
     override fun onBindViewHolder(holder: EntryViewHolder, position: Int) {

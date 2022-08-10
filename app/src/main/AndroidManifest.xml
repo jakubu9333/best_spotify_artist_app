@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.jakubu9333.bestartists">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:name=".MainApp"
@@ -10,6 +11,12 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.BestArtists">
+        <activity android:name=".AuthSpotify"
+                  >
+        </activity>
+        <activity android:name=".SecondActivity"
+                  android:parentActivityName=".MainActivity">
+        </activity>
         <activity
                 android:name=".MainActivity"
                 android:exported="true"

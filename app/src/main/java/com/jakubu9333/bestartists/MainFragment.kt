@@ -1,6 +1,7 @@
 package com.jakubu9333.bestartists
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -58,7 +59,8 @@ class MainFragment : Fragment() {
         }
 
         binding.button.setOnClickListener {
-           viewModel.onNewEntry()
+            startActivity(Intent(activity,SecondActivity::class.java))
+            viewModel.onNewEntry()
         }
         binding.button3.setOnClickListener{
             viewModel.onClear()

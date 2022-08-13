@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey
 data class ArtistEntity(
 
     @PrimaryKey @ColumnInfo(name = "artistId")
-    val uri :String,
+    val id :String,
 
     val name: String,
     val imageUrl: String,
@@ -25,14 +25,14 @@ data class ArtistEntity(
 
         other as ArtistEntity
 
-        if (uri != other.uri) return false
+        if (id != other.id) return false
         if (name != other.name) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = uri.hashCode()
+        var result = id.hashCode()
         result = 31 * result + name.hashCode()
         return result
     }

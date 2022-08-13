@@ -24,6 +24,8 @@ interface AllDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertArtists(artists: List<ArtistEntity>)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertMapping(mapping:EntriesArtistsMap)
 
     @Query("SELECT * from pastRequests WHERE entryId=:key")
     fun get(key: Long): PastEntry?
@@ -38,12 +40,6 @@ interface AllDao {
 
     @Query("SELECT * FROM pastRequests ORDER BY entryId DESC")
     fun getAllEntries(): Flow<List<PastEntry>>
-
-    @Query("SELECT * FROM artists")
-    fun  getAllArtists(): List<ArtistEntity>
-
-    @Query("SELECT * FROM pastRequests")
-    fun getAllEntriesCo(): List<PastEntry>
 
 
     @Query("SELECT * FROM artists")

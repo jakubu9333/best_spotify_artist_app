@@ -48,7 +48,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter =ViewAdapter (viewModel)
+        val adapter =MainViewAdapter (viewModel)
         recyclerView.adapter=adapter
 
 

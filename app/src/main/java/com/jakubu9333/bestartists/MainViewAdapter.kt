@@ -16,7 +16,7 @@ import java.util.*
  *
  * @author Jakub Uhlarik
  */
-class ViewAdapter(private val entryViewModel: EntryViewModel) : ListAdapter<PastEntry, ViewAdapter.EntryViewHolder>(DiffCallback){
+class MainViewAdapter(private val entryViewModel: EntryViewModel) : ListAdapter<PastEntry, MainViewAdapter.EntryViewHolder>(DiffCallback){
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<PastEntry>() {
             override fun areItemsTheSame(oldItem: PastEntry, newItem: PastEntry): Boolean {

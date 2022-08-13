@@ -1,11 +1,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <data>
         <variable
-                name="viewModel"
-                type="com.jakubu9333.bestartists.SpotifyViewModel" />
+                name="artist"
+                type="com.jakubu9333.bestartists.jsonmodels.Artist" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +14,8 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.status}"
+                android:text="@string/app_name"
+                android:id="@+id/xd"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

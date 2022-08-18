@@ -30,7 +30,7 @@ class SecondFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         val bind = FragmentSecondBinding.inflate(inflater)
-        bind.lifecycleOwner = this
+        bind.lifecycleOwner = viewLifecycleOwner
         val vm = viewModel
 
         //var success=false

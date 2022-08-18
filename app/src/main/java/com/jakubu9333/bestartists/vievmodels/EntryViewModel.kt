@@ -35,7 +35,7 @@ class EntryViewModel(
         }
     }
 
-    suspend fun getAllEnt(): Flow<List<PastEntry>>? {
+    fun getAllEnt(): Flow<List<PastEntry>>? {
         entries = database.getAllEntries()
         return entries
     }

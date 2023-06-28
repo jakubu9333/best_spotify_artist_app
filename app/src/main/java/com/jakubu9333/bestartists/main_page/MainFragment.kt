@@ -1,4 +1,4 @@
-package com.jakubu9333.bestartists
+package com.jakubu9333.bestartists.main_page
 
 
 import android.content.Intent
@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jakubu9333.bestartists.Get_Artists_Page.SecondActivity
 import com.jakubu9333.bestartists.databinding.FragmentMainFragmentBinding
 import com.jakubu9333.bestartists.vievmodels.EntryViewModel
 import com.jakubu9333.bestartists.vievmodels.EntryViewModelFactory
@@ -35,21 +36,18 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
 
 
     }
-
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter =MainViewAdapter (viewModel)
-        recyclerView.adapter=adapter
+        val adapter = MainViewListAdapter(viewModel, activity)
+        recyclerView.adapter = adapter
 
 
         lifecycle.coroutineScope.launch {
@@ -58,14 +56,14 @@ class MainFragment : Fragment() {
             }
         }
 
-        binding.button.setOnClickListener {
-            startActivity(Intent(activity,SecondActivity::class.java))
+        binding.getNewButton.setOnClickListener {
+
+            startActivity(Intent(activity, SecondActivity::class.java))
             viewModel.onNewEntry()
         }
-        binding.button3.setOnClickListener{
+        binding.resetButton.setOnClickListener {
             viewModel.onClear()
         }
-
 
 
     }

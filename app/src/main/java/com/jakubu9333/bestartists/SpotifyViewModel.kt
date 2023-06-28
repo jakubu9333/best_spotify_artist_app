@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jakubu9333.bestartists.database.EntriesArtistsMap
 import com.jakubu9333.bestartists.jsonmodels.Artist
+import com.jakubu9333.bestartists.vievmodels.EntryViewModel
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 /**
  *
@@ -29,16 +32,25 @@ class SpotifyViewModel : ViewModel() {
     }
 
 
-    fun getBestArtist(auth: String){
+    fun getBestArtist(auth: String, adapter: ArtistListAdapter, dbViewModel: EntryViewModel) {
 
         viewModelScope.launch {
 
             try {
-                 val res = SpotifyApi.retrofitService.getTopArtists("Bearer $auth")
+                val res = SpotifyApi.retrofitService.getTopArtists("Bearer $auth")
                 _artists.value = res.items
-                _status.value=res.items.toString()
-            } catch (e: Exception) {
-               _status.value=  "Failure: ${e.message}"
+                val artistEntityList = artists.value?.map { artist -> artist.getDatabaseArtist() }
+                //todo get new id
+                val entryId = 16L
+                val mappings = artistEntityList?.map { artistEntity -> EntriesArtistsMap(entryId, artistEntity.id) }
+                dbViewModel.onAddMappings(mappings, artistEntityList)
+                adapter.submitList(artistEntityList)
+            } catch (e: HttpException) {
+                if (e.code() == 401) {
+                    _status.value = "Failure: unauthorized"
+                    return@launch
+                }
+                _status.value = "Failure: ${e.message}"
             }
 
         }

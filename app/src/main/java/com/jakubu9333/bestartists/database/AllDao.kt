@@ -24,19 +24,34 @@ interface AllDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertArtists(artists: List<ArtistEntity>)
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertMapping(mapping:EntriesArtistsMap)
+    fun insertMapping(mapping: EntriesArtistsMap)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertMappings(mapping: List<EntriesArtistsMap>)
 
     @Query("SELECT * from pastRequests WHERE entryId=:key")
     fun get(key: Long): PastEntry?
 
+    @Query(
+        "SELECT artistId,name,imageUrl from artists " +
+                "inner join entry_artist_join_table on artists.artistId=entry_artist_join_table.artistIdRef " +
+                "inner join  pastRequests on entry_artist_join_table.entryIdRef=pastRequests.entryId where entryId=:key"
+    )
+    fun getArtistsByEntry(key: Long): Flow<List<ArtistEntity>>
+
+    @Query("Select * from entry_artist_join_table")
+    fun getArtistsAll(): Flow<List<EntriesArtistsMap>>
+
     @Query("DELETE FROM pastRequests where entryId=:key")
     fun clearEntry(key: Long)
+
     @Query("DELETE FROM pastRequests")
     fun clear()
 
     @Query("SELECT * FROM pastRequests ORDER BY entryId DESC limit 1")
-    fun getLastEntry():PastEntry
+    fun getLastEntry(): PastEntry
 
     @Query("SELECT * FROM pastRequests ORDER BY entryId DESC")
     fun getAllEntries(): Flow<List<PastEntry>>

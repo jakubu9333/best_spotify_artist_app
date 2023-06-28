@@ -1,10 +1,11 @@
-package com.jakubu9333.bestartists
+package com.jakubu9333.bestartists.Get_Artists_Page
 
 import android.content.Intent
 import android.os.Bundle
 
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.jakubu9333.bestartists.AuthSpotify
+import com.jakubu9333.bestartists.R
 
 /**
  *
@@ -17,10 +18,9 @@ class SecondActivity : AppCompatActivity() {
         setContentView(R.layout.second_activity)
 
         val shared = getSharedPreferences("SPOTIFY", 0)
-        var key = shared.getString("token", null)
-        while (key == null) {
+        val key = shared.getString("token", null)
+        if (key == null) {
             startActivity(Intent(this, AuthSpotify::class.java))
-            key=shared.getString("token", null)
         }
 
     }

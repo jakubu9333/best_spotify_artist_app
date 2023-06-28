@@ -3,6 +3,8 @@ package com.jakubu9333.bestartists.vievmodels
 import androidx.lifecycle.ViewModel
 
 import com.jakubu9333.bestartists.database.AllDao
+import com.jakubu9333.bestartists.database.ArtistEntity
+import com.jakubu9333.bestartists.database.EntriesArtistsMap
 import com.jakubu9333.bestartists.database.PastEntry
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -19,20 +21,11 @@ class EntryViewModel(
     val database: AllDao
 ) : ViewModel() {
     var entries: Flow<List<PastEntry>>? = null
+    var artists: Flow<List<ArtistEntity>>? = null
 
-    /*fun getEntriesCo(): Flow<List<PastEntry>>? {
-        entries = null
-        onAllOfTheEntries()
-        while (entries == null) {
-            var a = 1
-        }
-        return entries
-    }*/
-
-    fun onAllOfTheEntries() {
-        GlobalScope.launch {
-            getAllEnt()
-        }
+    fun getArtistsByEntry(entryId: Long): Flow<List<ArtistEntity>>? {
+        artists = database.getArtistsByEntry(entryId)
+        return artists
     }
 
     fun getAllEnt(): Flow<List<PastEntry>>? {
@@ -47,14 +40,28 @@ class EntryViewModel(
 
     }
 
-    fun onDeleteEntry(id: Long){
+    fun onArtists(artistEntityList: List<ArtistEntity>?) {
+        GlobalScope.launch {
+            if (artistEntityList != null) {
+                insertArtists(artistEntityList)
+            }
+        }
+    }
+
+    fun onDeleteEntry(id: Long) {
         GlobalScope.launch {
             deleteEntry(id)
         }
     }
-    suspend fun deleteEntry(id:Long){
+
+    suspend fun deleteEntry(id: Long) {
         database.clearEntry(id)
     }
+
+    suspend fun insertArtists(artistEntity: List<ArtistEntity>) {
+        database.insertArtists(artistEntity)
+    }
+
 
     suspend fun newEntry() {
         database.insertEntry(PastEntry())
@@ -70,5 +77,22 @@ class EntryViewModel(
 
     suspend fun clear() {
         database.clear()
+    }
+
+    suspend fun addMappings(mappings: List<EntriesArtistsMap>?) {
+        if (mappings != null) {
+            database.insertMappings(mappings)
+        }
+    }
+
+    fun onAddMappings(mappings: List<EntriesArtistsMap>?, artistEntityList: List<ArtistEntity>?) {
+        GlobalScope.launch {
+            if (artistEntityList != null) {
+                insertArtists(artistEntityList)
+            }
+            addMappings(mappings)
+        }
+
+
     }
 }

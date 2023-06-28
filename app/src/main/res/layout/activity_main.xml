@@ -5,7 +5,7 @@
                                                    android:layout_height="match_parent">
     <androidx.fragment.app.FragmentContainerView
             android:layout_width="0dp"
-            android:layout_height="0dp" android:name="com.jakubu9333.bestartists.MainFragment"
+            android:layout_height="0dp" android:name="com.jakubu9333.bestartists.main_page.MainFragment"
             android:id="@+id/fragmentContainerView" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>

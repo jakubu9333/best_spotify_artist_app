@@ -11,7 +11,8 @@ import androidx.room.ForeignKey
 
 
 @Entity(
-    primaryKeys = ["entryIdRef","artistIdRef"],
+    tableName = "entry_artist_join_table",
+    primaryKeys = ["entryIdRef", "artistIdRef"],
     foreignKeys = [
         ForeignKey(
             entity = PastEntry::class,

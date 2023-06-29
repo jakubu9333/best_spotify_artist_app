@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jakubu9333.bestartists.database.EntriesArtistsMap
 import com.jakubu9333.bestartists.jsonmodels.Artist
 import com.jakubu9333.bestartists.vievmodels.EntryViewModel
 import kotlinx.coroutines.launch
@@ -40,10 +39,7 @@ class SpotifyViewModel : ViewModel() {
                 val res = SpotifyApi.retrofitService.getTopArtists("Bearer $auth")
                 _artists.value = res.items
                 val artistEntityList = artists.value?.map { artist -> artist.getDatabaseArtist() }
-                //todo get new id
-                val entryId = 16L
-                val mappings = artistEntityList?.map { artistEntity -> EntriesArtistsMap(entryId, artistEntity.id) }
-                dbViewModel.onAddMappings(mappings, artistEntityList)
+                dbViewModel.onAddMappingswithNewEntry(artistEntityList)
                 adapter.submitList(artistEntityList)
             } catch (e: HttpException) {
                 if (e.code() == 401) {

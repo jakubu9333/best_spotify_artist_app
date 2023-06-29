@@ -57,10 +57,9 @@ class MainFragment : Fragment() {
         }
 
         binding.getNewButton.setOnClickListener {
-
             startActivity(Intent(activity, SecondActivity::class.java))
-            viewModel.onNewEntry()
         }
+
         binding.resetButton.setOnClickListener {
             viewModel.onClear()
         }

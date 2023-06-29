@@ -63,8 +63,8 @@ class EntryViewModel(
     }
 
 
-    suspend fun newEntry() {
-        database.insertEntry(PastEntry())
+    suspend fun newEntry():Long {
+        return database.insertEntry(PastEntry())
     }
 
 
@@ -79,20 +79,21 @@ class EntryViewModel(
         database.clear()
     }
 
-    suspend fun addMappings(mappings: List<EntriesArtistsMap>?) {
-        if (mappings != null) {
-            database.insertMappings(mappings)
-        }
+    suspend fun instertArtistWithMapping(artists: List<ArtistEntity>) {
+            database.insertEntryWitArtists(artists)
+
     }
 
-    fun onAddMappings(mappings: List<EntriesArtistsMap>?, artistEntityList: List<ArtistEntity>?) {
+    fun onAddMappingswithNewEntry(artistEntityList: List<ArtistEntity>?) {
         GlobalScope.launch {
             if (artistEntityList != null) {
-                insertArtists(artistEntityList)
+                instertArtistWithMapping(artistEntityList)
             }
-            addMappings(mappings)
+
         }
 
 
     }
+
+
 }

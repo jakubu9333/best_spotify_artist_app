@@ -1,10 +1,7 @@
 package com.jakubu9333.bestartists.database
 
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 
@@ -17,7 +14,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AllDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertEntry(entry: PastEntry)
+    fun insertEntry(entry: PastEntry): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertArtist(artist: ArtistEntity)
@@ -33,6 +30,14 @@ interface AllDao {
 
     @Query("SELECT * from pastRequests WHERE entryId=:key")
     fun get(key: Long): PastEntry?
+
+    @Transaction
+    fun insertEntryWitArtists(artists: List<ArtistEntity>){
+        val entryId = insertEntry(PastEntry())
+        insertArtists(artists)
+        val entryArtistMapping = artists.map { artistEntity -> EntriesArtistsMap(entryId, artistEntity.id) }
+        insertMappings(entryArtistMapping)
+    }
 
     @Query(
         "SELECT artistId,name,imageUrl from artists " +
